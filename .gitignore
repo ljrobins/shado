@@ -1,0 +1,8 @@
+bin
+include
+lib
+share
+*.egg-info
+*.so
+*.cfg
+.DS_Store
