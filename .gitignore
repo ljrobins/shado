@@ -6,3 +6,4 @@ share
 *.so
 *.cfg
 .DS_Store
+.pytest_cache
