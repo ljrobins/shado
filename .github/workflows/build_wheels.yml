@@ -18,8 +18,7 @@ jobs:
       matrix:
         # Github Actions doesn't support pairing matrix values together, let's improvise
         # https://github.com/github/feedback/discussions/7835#discussioncomment-1769026
-        os:
-          - [ubuntu-20.04, macos-13, macos-14, windows-2019]
+        os: [ubuntu-20.04, macos-13, macos-14, windows-2019]
 
     steps:
     - uses: actions/checkout@v4
