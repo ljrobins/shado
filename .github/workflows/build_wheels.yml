@@ -5,14 +5,29 @@ on:
     branches:
       - main  # Change this to the main branch name, or use 'master' if that's the default branch.
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
   build:
-    name: Wheels on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
+    name: Wheels on ${{ matrix.buildplat[0] }}
+    runs-on: ${{ matrix.buildplat[0] }}
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        # Github Actions doesn't support pairing matrix values together, let's improvise
+        # https://github.com/github/feedback/discussions/7835#discussioncomment-1769026
+        buildplat:
+          - [ubuntu-20.04, manylinux_x86_64]
+          - [ubuntu-20.04, musllinux_x86_64]
+          - [macos-13, macosx_x86_64]
+
+          # targeting macos >= 14. Could probably build on macos-14, but it would be a cross-compile
+          - [macos-13, macosx_x86_64]
+          - [macos-14, macosx_arm64]  # always use accelerate
+          - [windows-2019, win_amd64]
+        python: ["cp310", "cp311", "cp312"]
 
     steps:
     - uses: actions/checkout@v4
@@ -31,9 +46,7 @@ jobs:
     - name: Build wheels
       uses: pypa/cibuildwheel@v2.19.1
       env:
-        CIBW_ARCHS_MACOS: x86_64 arm64
-        CIBW_ARCHS_WINDOWS: AMD64
-        CIBW_ARCHS_LINUX: x86_64 aarch64
+        CIBW_BUILD: ${{ matrix.python }}-${{ matrix.buildplat[1] }}
         CIBW_TEST_REQUIRES: pytest numpy
         CIBW_TEST_COMMAND: pytest {project}/tests/test.py
       
