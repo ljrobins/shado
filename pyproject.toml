@@ -1,7 +1,7 @@
 
 [project]
 name = "shado"
-version = "0.0.7"
+version = "0.0.8"
 authors = [{name = "Liam Robinson", email = "liamers127@gmail.com"}]
 description = "Python bindings for Li et al. 2019's shadow function for orbital eclipse modeling"
 requires-python = ">=3.9"
