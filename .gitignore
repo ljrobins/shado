@@ -5,6 +5,7 @@ share
 *.egg-info
 *.so
 *.cfg
+!.bumpversion.cfg
 .DS_Store
 .pytest_cache
 __pycache__

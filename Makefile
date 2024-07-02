@@ -1,4 +1,4 @@
-.PHONY: all docs black sphinx isort
+.PHONY: all docs black sphinx isort bump
 
 sphinx:
 	cd docs && sphinx-apidoc -o ./source ../template -f && make html
@@ -17,6 +17,10 @@ isort:
 rm-docs:
 	rm -rf docs/source/gallery
 	rm -rf docs/html
+
+bump:
+	bump2version patch --allow-dirty
+
  
 docs: black isort sphinx
 docs-clean: rm-docs docs
