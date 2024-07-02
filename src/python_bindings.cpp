@@ -36,11 +36,13 @@ Eigen::VectorXd shadow_function(Eigen::MatrixXd r_sat, Eigen::MatrixXd r_sun) {
 
 PYBIND11_MODULE(shado, m) {
     m.def("shadow_function", &shadow_function, R"mydelimiter(
-        Generate n evenly spaced DateTime objects between two specified DateTime points
+        Computes the shadow function (the fraction of solar irradiance reaching a point in Earth-Centered Inertial (ECI) space) accounting for Earth oblateness and atmospheric scattering
 
-        :param dt1: The first DateTime
-        :param dt2: The second DateTime
-        :param n: The number of DateTime objects to generate
-        :return: A vector of DateTime objects
+        :param r_sat: The position of interest in ECI (e.g. J2000) in km
+        :type r_sat: np.ndarray [n,3]
+        :param r_sun: The position of the Sun corresponding to the r_sat points of interest, expressed in the same ECI frame in km
+        :type r_sat: np.ndarray [n,3]
+        :return: The solar irradiance fraction at each input row
+        :rtype: np.ndarray [n,]
         )mydelimiter");
 }
