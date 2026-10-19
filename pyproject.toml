@@ -1,14 +1,20 @@
-
 [project]
 name = "shado"
-version = "0.0.10"
+version = "0.0.11"
 authors = [{name = "Liam Robinson", email = "liamers127@gmail.com"}]
 description = "Python bindings for Li et al. 2019's shadow function for orbital eclipse modeling"
-requires-python = ">=3.9"
+readme = "README.rst"
+requires-python = ">=3.12"
+dependencies = ["numpy>=1.26"]
 
 [project.urls]
-Repository = "https://github.com/liamrobinson1/shado"
+Repository = "https://github.com/ljrobins/shado"
 
 [build-system]
-requires = ["setuptools>=42", "wheel", "numpy>=1.19.2", "pybind11>=2.11.0", "eigency>=1.6.0", "setuptools-scm>=8.0"]
+requires = [
+    "setuptools>=77",
+    "numpy>=1.26",
+    "pybind11>=2.13,<4",
+    "eigency>=5,<6",
+]
 build-backend = "setuptools.build_meta"

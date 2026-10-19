@@ -1,0 +1,5 @@
+include README.rst
+include src/*.cpp
+include src/*.hpp
+include src/*.h
+recursive-include tests *.py
